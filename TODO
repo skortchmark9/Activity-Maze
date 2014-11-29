@@ -1,0 +1,13 @@
+Heyyyyy Sam - I'm writing this instead of an email wowwwwwww.
+
+We're gonna keep track of stuff we need to do in this file.
+
+Assuming all of the code I wrote works, (which it won't) the biggest obstacle
+is refactoring the solver code towards statelessness. In the C - version, the
+maze traversal was written to a file (addToList) and then the gui animated that
+file. We can't quite do that here because we want the user to be able to
+intervene. I've marked the spot where that should happen, but I don't know 
+rigorously if we can resume the search at any point. I think we should, but not
+sure.
+
+We also talked about registering frustration with dead ends.
