@@ -11,3 +11,10 @@ rigorously if we can resume the search at any point. I think we should, but not
 sure.
 
 We also talked about registering frustration with dead ends.
+
+
+Sam,
+There are two reasonable options for rendering the tiles. One being create all
+possible tiles (I think 16 possibilities). The other being to generate them
+at runtime. Do you have a preference?
+-Sam
