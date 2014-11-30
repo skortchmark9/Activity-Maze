@@ -18,3 +18,14 @@ There are two reasonable options for rendering the tiles. One being create all
 possible tiles (I think 16 possibilities). The other being to generate them
 at runtime. Do you have a preference?
 -Sam
+
+My idea is to have each room on a 3x3 grid. Something like this:
+XOX XXX
+OOO OOX
+XOX XOX
+
+XOX XOX
+XOO OOO
+XXX XXX
+
+
