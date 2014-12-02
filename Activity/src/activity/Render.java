@@ -11,7 +11,6 @@ public class Render {
 	public final static Color PATH_COLOR = Color.gray;
 	public final static Color WALKER_COLOR = Color.white;
 	public Maze maze;
-	//private int currentX, currentY;
 	
 	public Render(Maze maze) {
 		this.maze = maze;
