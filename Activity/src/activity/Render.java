@@ -74,8 +74,8 @@ public class Render {
 	
 	public void renderImage(int currentX, int currentY) {
 		pixelsToShow = pixels.clone();
-		for (int x = currentX * TILE_SIZE; x < TILE_SIZE; x++)
-			for (int y = currentY * TILE_SIZE; y < TILE_SIZE; y++)
+		for (int x = currentX + (TILE_SIZE / 3); x < currentX + 2 * (TILE_SIZE / 3); x++)
+			for (int y = currentY + (TILE_SIZE / 3); y < currentY + 2 * (TILE_SIZE / 3); y++)
 				pixelsToShow[x][y] = WALKER;
 		
 	}
@@ -100,7 +100,7 @@ public class Render {
 					g.fillRect(x * TILE_SIZE + (TILE_SIZE / 3), y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE, TILE_SIZE);
 				//if (currentX == x && currentY == y)
 				//	g.setColor(WALKER_COLOR);
-				g.fillRect(x * TILE_SIZE + (TILE_SIZE / 3), y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3);
+				//g.fillRect(x * TILE_SIZE + (TILE_SIZE / 3), y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3);
 			}
 		}
 	}
