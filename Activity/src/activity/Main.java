@@ -1,6 +1,5 @@
 package activity;
 
-import java.util.Random;
 
 public class Main {
 
@@ -20,9 +19,11 @@ public class Main {
 		
 		Maze m = new Maze(width, height);
 		Solver s = new Solver(m);
+		
+		Frontend f = new Frontend(new Render(m));
 
-		Random r = new Random();
-		s.depthFirstSearch(0, 0, r.nextInt(width), r.nextInt(height));
+		
+//		s.depthFirstSearch(0, 0, r.nextInt(width), r.nextInt(height));
 		
 		/*For reference.
 		* http://cs.brown.edu/courses/cs033/docs/projects/maze_generator.pdf
