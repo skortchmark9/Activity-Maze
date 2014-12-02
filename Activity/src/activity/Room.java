@@ -32,7 +32,7 @@ public class Room extends Point {
 
 		Random r = new Random();
 		for(int i = 0; i < Constants.NUM_DIRECTIONS; i++) {
-			doors[i].isWall = onlyWalls;
+			doors[i].isWall = false;//= onlyWalls;
 					//|| (r.nextInt() % Constants.WALL_FREQUENCY) == 0;
 		}
 		

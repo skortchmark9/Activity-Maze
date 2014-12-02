@@ -17,7 +17,7 @@ public class Maze {
 			}
 		}
 		
-		drunkenWalk(startX, startY);
+//		drunkenWalk(startX, startY);
 		resetVisited();
 	}
 	

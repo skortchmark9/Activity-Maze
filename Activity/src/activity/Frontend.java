@@ -1,9 +1,8 @@
 package activity;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,16 +18,16 @@ public class Frontend {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.BLACK);
-		frame.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+		frame.setPreferredSize(new Dimension(r.TILE_SIZE * r.maze.cols, r.TILE_SIZE * r.maze.rows));
 
 		Canvas p = new Canvas(r);
 		frame.getContentPane().add(p);
 
 		frame.pack();
 		frame.setVisible(true);
-        GraphicsEnvironment.getLocalGraphicsEnvironment()
-        .getDefaultScreenDevice()
-        .setFullScreenWindow(frame);
+//        GraphicsEnvironment.getLocalGraphicsEnvironment()
+//        .getDefaultScreenDevice()
+//        .setFullScreenWindow(frame);
 
 	}
 }
