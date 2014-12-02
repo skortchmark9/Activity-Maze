@@ -21,15 +21,19 @@ public class Room extends Point {
 
 	private static Door[] initDoors(Room room, boolean onlyWalls) {
 		Door[] doors = new Door[Constants.NUM_DIRECTIONS];
+		doors[0] = new Door();
 		doors[0].dir = Door.Direction.LEFT;
+		doors[1] = new Door();
 		doors[1].dir = Door.Direction.RIGHT;
+		doors[2] = new Door();
 		doors[2].dir = Door.Direction.UP;
+		doors[3] = new Door();
 		doors[3].dir = Door.Direction.DOWN;
 
 		Random r = new Random();
 		for(int i = 0; i < Constants.NUM_DIRECTIONS; i++) {
-			doors[i].isWall = onlyWalls || 
-					(r.nextInt() % Constants.WALL_FREQUENCY) == 0;
+			doors[i].isWall = onlyWalls;
+					//|| (r.nextInt() % Constants.WALL_FREQUENCY) == 0;
 		}
 		
 		return doors;

@@ -97,12 +97,13 @@ public class Maze {
 				break;
 			
 			}
-			neighbor = rooms[neighborY][neighborX];
+			
 
 			
 			if (outOfBounds) {
 				d.isWall = true;
 			} else {
+				neighbor = rooms[neighborY][neighborX];
 				if (!neighbor.visited) {
 					d.isWall = false;
 					drunkenWalk(neighborX, neighborY);
