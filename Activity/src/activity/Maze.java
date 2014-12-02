@@ -31,6 +31,7 @@ public class Maze {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		resetVisited();
 	}
 	
 	Maze(int startX, int startY, int rows, int cols) {

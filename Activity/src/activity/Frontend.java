@@ -18,7 +18,7 @@ public class Frontend implements KeyListener  {
 	Direction userDirection;
 	
 	Frontend(Solver s) {
-		
+		this.s = s;
 		JFrame frame = new JFrame("Maze");
 //		frame.setUndecorated(true);
 //		frame.setResizable(false);
@@ -28,9 +28,8 @@ public class Frontend implements KeyListener  {
 
 		c = new Canvas(s.maze);
 		
-		c.addKeyListener(this);
+		frame.addKeyListener(this);
 		frame.getContentPane().add(c);
-		c.grabFocus();
 
 		frame.pack();
 		frame.setVisible(true);
@@ -45,15 +44,15 @@ public class Frontend implements KeyListener  {
 	}
 	
 	public void start() {
-		boolean done = true;
+		boolean done = false;
 		while (!done) {
-
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			c.setWalker(s.solverX, s.solverY);
 			c.repaint();
 			if (useDirection) {
 //				done = s.tick(userDirection);
@@ -61,7 +60,7 @@ public class Frontend implements KeyListener  {
 				System.out.println(userDirection);
 				useDirection = false;
 			} else {
-//				done = s.tick();
+				done = s.tick();
 			}
 		}		
 	}
@@ -78,25 +77,20 @@ public class Frontend implements KeyListener  {
 		case KeyEvent.VK_UP:
 			useDirection = true;
 			userDirection = Direction.UP;
-			System.out.println("KEY PRESS");
 			break;
 		case KeyEvent.VK_DOWN:
 			useDirection = true;
 			userDirection = Direction.DOWN;
-			System.out.println("KEY PRESS");
 			break;
 		case KeyEvent.VK_LEFT:
 			useDirection = true;
 			userDirection = Direction.LEFT;
-			System.out.println("KEY PRESS");
 			break;
 		case KeyEvent.VK_RIGHT:
 			useDirection = true;
 			userDirection = Direction.RIGHT;
-			System.out.println("KEY PRESS");
 			break;
 		default:
-			System.out.println("SAD");
 			useDirection = false;
 			break;
 		}
@@ -105,7 +99,8 @@ public class Frontend implements KeyListener  {
 	
 class Canvas extends JPanel {
 	private static final long serialVersionUID = -399237770170496514L;
-
+	int x;
+	int y;
 	Render r;
 	
 	Canvas(Maze m) {
@@ -113,9 +108,14 @@ class Canvas extends JPanel {
 		this.r = new Render(m);
 	}
 	
+	public void setWalker(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
-		r.paint(g, 0, 0);
+		r.paint(g, x, y);
 	}
 
 }

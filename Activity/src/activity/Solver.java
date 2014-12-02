@@ -20,7 +20,7 @@ public class Solver {
 	}
 	
 	public boolean tick() {
-		Room current = maze.rooms[solverX][solverY];
+		Room current = maze.rooms[solverY][solverX];
 		
 		if (solverX == goalX && solverY == goalY) {
 			return true;
