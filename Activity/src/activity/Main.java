@@ -17,7 +17,7 @@ public class Main {
 			return;
 		}
 		
-		Maze m = new Maze(width, height);
+		Maze m = new Maze("mazes/maze0.txt", 10, 25);
 		m.printMaze();
 		Solver s = new Solver(m);
 		

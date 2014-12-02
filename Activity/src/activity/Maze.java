@@ -1,4 +1,7 @@
 package activity;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import activity.Door.Direction;
 
 
@@ -8,8 +11,26 @@ public class Maze {
 	int cols;
 	
 	
-	Maze(String path) {
-		
+	Maze(String path, int rows, int cols) {
+		this.rows = rows;
+		this.cols = cols;
+		rooms = new Room[rows][cols];
+		String line;
+		try {
+			FileReader fileReader = new FileReader(path);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			int currentRow = -1;
+			while((line = bufferedReader.readLine()) !=null) {	
+				currentRow++;
+				for(int col = 0; col < cols; col++) {
+					int roomHex = Integer.parseInt(Character.toString(line.charAt(col)), 16);
+					rooms[currentRow][col] = new Room(col, currentRow, roomHex);
+				}
+			}
+			bufferedReader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	Maze(int startX, int startY, int rows, int cols) {
