@@ -10,6 +10,32 @@ public class Room extends Point {
 	boolean visited = false;
 	
 	Room(int x, int y, int hex) {
+		this.x = x;
+		this.y = y;
+		if (hex >= 16) {
+			System.out.println("BAD HEX VALUE");
+		}
+		doors = Room.initDoors(true);
+		for(int i = 0; i < doors.length; i++) {
+			switch (doors[i].dir) {
+			case RIGHT:
+				doors[i].isWall = (hex & 0x8) != 0;
+				break;
+			case LEFT:
+				doors[i].isWall = (hex & 0x4) != 0;
+				break;
+			case DOWN:
+				doors[i].isWall = (hex & 0x2) != 0;
+				break;
+			case UP:
+				doors[i].isWall = (hex & 0x1) != 0;
+				break;
+			default:
+				break;			
+			}
+		}
+		
+		
 		
 	}
 	
@@ -19,11 +45,11 @@ public class Room extends Point {
 	
 	Room(int x, int y, boolean OnlyWalls) {
 		super(x, y);
-		this.doors = Room.initDoors(this, OnlyWalls);
+		this.doors = Room.initDoors(OnlyWalls);
 	}
 
 
-	private static Door[] initDoors(Room room, boolean onlyWalls) {
+	private static Door[] initDoors(boolean onlyWalls) {
 		Door[] doors = new Door[Constants.NUM_DIRECTIONS];
 		doors[0] = new Door();
 		doors[0].dir = Door.Direction.LEFT;
