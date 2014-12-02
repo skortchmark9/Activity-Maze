@@ -20,6 +20,19 @@ public class Main {
 		Maze m = new Maze("mazes/maze0.txt", 10, 25);
 		m.printMaze();
 		Solver s = new Solver(m);
+		s.depthFirstSearch(0, 0, 24, 9);
+		
+//		while (running) {
+//			canvas.repaint();
+//			if (s.DFS == true) {
+//				//TODO: SUCCESS!
+//				running = false;
+//			} else {
+//				//Prompt USER INPUT.
+//				//Once we get it
+//				s.DFS
+//			}
+//		}
 		
 		Frontend f = new Frontend(new Render(m));
 

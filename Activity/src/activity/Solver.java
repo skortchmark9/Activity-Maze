@@ -22,6 +22,7 @@ public class Solver implements KeyListener {
 
 	
 	public void addToList(Room r) {
+		System.out.println(String.format("Room (%d, %d)", r.x, r.y));
 		return;
 	}
 	
