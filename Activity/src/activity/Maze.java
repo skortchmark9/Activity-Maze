@@ -7,6 +7,11 @@ public class Maze {
 	int rows;
 	int cols;
 	
+	
+	Maze(String path) {
+		
+	}
+	
 	Maze(int startX, int startY, int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
@@ -17,7 +22,7 @@ public class Maze {
 			}
 		}
 		
-//		drunkenWalk(startX, startY);
+		drunkenWalk(startX, startY);
 		resetVisited();
 	}
 	
@@ -43,6 +48,40 @@ public class Maze {
 		return true;
 	}
 	
+	public void printMaze() {
+		for(int i = 0; i < rows; i++) {
+			for(int j = 0; j < cols; j++) {
+				int rVal  = roomToInt(rooms[i][j]);
+				System.out.print(Integer.toHexString(rVal));				
+			}
+			System.out.println();
+		}		
+	}
+
+	private int roomToInt(Room r) {
+		int result = 0;
+		for(int i = 0; i < r.doors.length; i++) {
+			Door d = r.doors[i];
+			switch (d.dir) {
+			case DOWN:
+				result += 2 * (d.isWall ? 1 : 0);
+				break;
+			case LEFT:
+				result += 4 * (d.isWall ? 1 : 0);
+				break;
+			case RIGHT:
+				result += 8 * (d.isWall ? 1 : 0);
+				break;
+			case UP:
+				result += 1 * (d.isWall ? 1 : 0);
+				break;
+			default:
+				break;			
+			}
+		}
+		return result;
+		
+	}
 	
 	/**
 	 * Guarantees a path from any room in the maze to any other.

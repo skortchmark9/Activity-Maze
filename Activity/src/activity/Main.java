@@ -18,6 +18,7 @@ public class Main {
 		}
 		
 		Maze m = new Maze(width, height);
+		m.printMaze();
 		Solver s = new Solver(m);
 		
 		Frontend f = new Frontend(new Render(m));

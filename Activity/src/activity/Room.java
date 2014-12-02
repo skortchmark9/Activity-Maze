@@ -9,6 +9,10 @@ public class Room extends Point {
 	Door[] doors;
 	boolean visited = false;
 	
+	Room(int x, int y, int hex) {
+		
+	}
+	
 	Room(int x, int y) {
 		this(x, y, false);
 	}
@@ -32,7 +36,7 @@ public class Room extends Point {
 
 		Random r = new Random();
 		for(int i = 0; i < Constants.NUM_DIRECTIONS; i++) {
-			doors[i].isWall = false;//= onlyWalls;
+			doors[i].isWall = true;//= onlyWalls;
 					//|| (r.nextInt() % Constants.WALL_FREQUENCY) == 0;
 		}
 		
