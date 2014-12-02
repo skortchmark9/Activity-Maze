@@ -10,103 +10,58 @@ public class Render {
 	public final static Color WALL_COLOR = Color.black;
 	public final static Color PATH_COLOR = Color.gray;
 	public final static Color WALKER_COLOR = Color.white;
-	public final static int WALL = 0x000000;
-	public final static int PATH = 0x7f7f7f;
-	public final static int WALKER = 0xffffff;
 	public Maze maze;
-	private int[][] pixels;
-	private int[][] pixelsToShow;
 	//private int currentX, currentY;
 	
 	public Render(Maze maze) {
 		this.maze = maze;
-		pixels = new int[maze.cols * TILE_SIZE][maze.rows * TILE_SIZE];
-		pixelsToShow = new int[maze.cols * TILE_SIZE][maze.rows * TILE_SIZE];
-		fillImage();
-		generateImage();
 		//currentX = 0;
 		//currentY = 0;
 	}
 	
 	/*public Render(Maze maze, int currentX, int currentY) {
 		this.maze = maze;
-		pixels = new int[maze.cols * TILE_SIZE][maze.rows * TILE_SIZE];
-		pixelsToShow = new int[maze.cols * TILE_SIZE][maze.rows * TILE_SIZE];
-		fillImage();
-		generateImage();
 		this.currentX = currentX;
 		this.currentY = currentY;
 	}*/
-	
-	public void fillImage() {
-		for (int x = 0; x < pixels.length; x++)
-			for (int y = 0; y < pixels[0].length; y++)
-				pixels[x][y] = WALL;
-	}
-	
-	public void generateImage() {
-		for (int tileX = 0; tileX < maze.cols; tileX++) {
-			for (int tileY = 0; tileY < maze.rows; tileY++) {
-				for (int x = 0; x < TILE_SIZE; x++) {
-					for (int y = 0; y < TILE_SIZE; y++) {
-						if ((x < 3 || x >= 6) && (y < 3 || y >= 6));
-						else if ((x < 3) && (y >= 3 || y < 6)) {//LEFT
-							if (!maze.rooms[tileX][tileY].doors[0].isWall)
-								pixels[x + (tileX * TILE_SIZE)][y + (tileY * TILE_SIZE)] = PATH;
-						}
-						else if ((x >= 6) && (y >= 3 || y < 6)) {//RIGHT
-							if (!maze.rooms[tileX][tileY].doors[1].isWall)
-								pixels[x + (tileX * TILE_SIZE)][y + (tileY * TILE_SIZE)] = PATH;
-						}
-						else if ((x >= 3 || x < 6) && (y < 3)) {//UP
-							if (!maze.rooms[tileX][tileY].doors[2].isWall)
-								pixels[x + (tileX * TILE_SIZE)][y + (tileY * TILE_SIZE)] = PATH;
-						}
-						else if ((x >=3 || x < 6) && (y >= 6)) {//DOWN
-							if (!maze.rooms[tileX][tileY].doors[3].isWall)
-								pixels[x + (tileX * TILE_SIZE)][y + (tileY * TILE_SIZE)] = PATH;
-						}
-						else
-							pixels[x + (tileX * TILE_SIZE)][y + (tileY * TILE_SIZE)] = PATH;
-					}
-				}
-			}
-		}
-	}
-	
-	public void renderImage(int currentX, int currentY) {
-		pixelsToShow = pixels.clone();
-		for (int x = currentX + (TILE_SIZE / 3); x < currentX + 2 * (TILE_SIZE / 3); x++)
-			for (int y = currentY + (TILE_SIZE / 3); y < currentY + 2 * (TILE_SIZE / 3); y++)
-				pixelsToShow[x][y] = WALKER;
-		
+	/*
+	 * 0 - none
+	 * 1 - up
+	 * 2 - down
+	 * 3 - up, down
+	 * 4 - left
+	 * 5 - left, up
+	 * 6 - left, down
+	 * 7 - up, down, left
+	 * 8 - right
+	 * 9 - up, right
+	 * 10 - down, right
+	 * 11 - up, down, right
+	 * 12 - left, right
+	 * 13 - left, right, up
+	 * 14 - left, right, down
+	 * 15 - all
+	 */
+	public void paintRoom(Room r, Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(WALL_COLOR);
+		for (int i = 0; i < 9; i++)
+			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
+		g2d.setColor(PATH_COLOR);
+		if (!r.doors[0].isWall) //LEFT
+			g2d.fill3DRect(r.x * TILE_SIZE, r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
+		if (!r.doors[1].isWall) //RIGHT
+			g2d.fill3DRect(r.x * TILE_SIZE + (2 * (TILE_SIZE / 3)), r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
+		if (!r.doors[2].isWall) //UP
+			g2d.fill3DRect(r.x * TILE_SIZE + (TILE_SIZE / 3), r.y * TILE_SIZE, TILE_SIZE / 3, TILE_SIZE / 3, true);
+		if (!r.doors[3].isWall) //DOWN
+			g2d.fill3DRect(r.x * TILE_SIZE + (TILE_SIZE / 3), r.y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE / 3, TILE_SIZE / 3, true);
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(WALL_COLOR);
-		g.fillRect(0, 0, TILE_SIZE * maze.cols, TILE_SIZE * maze.rows);
 		for (int x = 0; x < maze.cols; x++) {
 			for (int y = 0; y < maze.rows; y++) {
-				g.setColor(WALL_COLOR);
-				g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-				Graphics2D g2d = (Graphics2D) g;
-
-				//g.drawRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE / 3, TILE_SIZE / 3);
-				//g.drawRect(x * TILE_SIZE + (2 * (TILE_SIZE / 3)), y * TILE_SIZE, TILE_SIZE / 3, TILE_SIZE / 3);
-				//g.drawRect(x * TILE_SIZE + (2 * (TILE_SIZE / 3)), y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE / 3, TILE_SIZE / 3);
-				//g.drawRect(x * TILE_SIZE, y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE / 3, TILE_SIZE / 3);
-				g.setColor(PATH_COLOR);
-				if (!maze.rooms[x][y].doors[0].isWall) //LEFT
-					g2d.fill3DRect(x * TILE_SIZE, y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
-				if (!maze.rooms[x][y].doors[1].isWall) //RIGHT
-					g2d.fill3DRect(x * TILE_SIZE + (2 * (TILE_SIZE / 3)), y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE, TILE_SIZE, true);
-				if (!maze.rooms[x][y].doors[2].isWall) //UP
-					g2d.fill3DRect(x * TILE_SIZE + (TILE_SIZE / 3), y * TILE_SIZE, TILE_SIZE, TILE_SIZE, true);
-				if (!maze.rooms[x][y].doors[3].isWall) //DOWN
-					g2d.fill3DRect(x * TILE_SIZE + (TILE_SIZE / 3), y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE, TILE_SIZE, true);
-				//if (currentX == x && currentY == y)
-				//	g.setColor(WALKER_COLOR);
-				//g.fillRect(x * TILE_SIZE + (TILE_SIZE / 3), y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3);
+				paintRoom(maze.rooms[x][y], g);
 			}
 		}
 	}
