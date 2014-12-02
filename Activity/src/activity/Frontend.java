@@ -62,7 +62,8 @@ public class Frontend implements KeyListener  {
 			} else {
 				done = s.tick();
 			}
-		}		
+		}	
+		System.out.println("Success!");
 	}
 
 

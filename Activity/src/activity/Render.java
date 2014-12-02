@@ -54,29 +54,47 @@ public class Render {
 		for (int i = 0; i < 9; i++)
 			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
 		g2d.setColor(PATH_COLOR);
+
 		int numOpenings = 0;
-		if (!r.doors[0].isWall) {//LEFT 
-			g2d.fill3DRect(r.x * TILE_SIZE, r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
-			numOpenings++;
-		}
-		if (!r.doors[1].isWall) {//RIGHT
-			g2d.fill3DRect(r.x * TILE_SIZE + (2 * (TILE_SIZE / 3)), r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
-			numOpenings++;
-		}
-		if (!r.doors[2].isWall) {//UP
-			g2d.fill3DRect(r.x * TILE_SIZE + (TILE_SIZE / 3), r.y * TILE_SIZE, TILE_SIZE / 3, TILE_SIZE / 3, true);
-			numOpenings++;
-		}
-		if (!r.doors[3].isWall) {//DOWN
-			g2d.fill3DRect(r.x * TILE_SIZE + (TILE_SIZE / 3), r.y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE / 3, TILE_SIZE / 3, true);
-			numOpenings++;
+		for(int i = 0; i < r.doors.length; i++) {
+			Door d = r.doors[i];
+			switch (d.dir) {
+			case DOWN:
+				if (!d.isWall) {//DOWN
+					g2d.fill3DRect(r.x * TILE_SIZE + (TILE_SIZE / 3), r.y * TILE_SIZE + (2 * (TILE_SIZE / 3)), TILE_SIZE / 3, TILE_SIZE / 3, true);
+					numOpenings++;
+				}				
+				break;
+			case LEFT:
+				if (!d.isWall) {//LEFT 
+					g2d.fill3DRect(r.x * TILE_SIZE, r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
+					numOpenings++;
+				}				
+				break;
+			case RIGHT:
+				if (!d.isWall) {//RIGHT
+					g2d.fill3DRect(r.x * TILE_SIZE + (2 * (TILE_SIZE / 3)), r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
+					numOpenings++;
+				}				
+				break;
+			case UP:
+				if (!d.isWall) {//UP
+					g2d.fill3DRect(r.x * TILE_SIZE + (TILE_SIZE / 3), r.y * TILE_SIZE, TILE_SIZE / 3, TILE_SIZE / 3, true);
+					numOpenings++;
+				}
+				break;
+			default:
+				break;
+			
+			}
 		}
 		
 		if (numOpenings >= 2) {
 			int i = 4;
 			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
 		}
-		
+
+				
 		if (r.x == startX && r.y == startY) {
 			g2d.setColor(START_COLOR);
 			int i = 4;
