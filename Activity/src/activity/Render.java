@@ -48,7 +48,7 @@ public class Render {
 		for (int i = 0; i < 9; i++)
 			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
 		g2d.setColor(PATH_COLOR);
-		if (!r.doors[0].isWall) //LEFT
+		if (!r.doors[0].isWall) //LEFT 
 			g2d.fill3DRect(r.x * TILE_SIZE, r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
 		if (!r.doors[1].isWall) //RIGHT
 			g2d.fill3DRect(r.x * TILE_SIZE + (2 * (TILE_SIZE / 3)), r.y * TILE_SIZE + (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
@@ -61,7 +61,7 @@ public class Render {
 	public void paint(Graphics g) {
 		for (int x = 0; x < maze.cols; x++) {
 			for (int y = 0; y < maze.rows; y++) {
-				paintRoom(maze.rooms[x][y], g);
+				paintRoom(maze.rooms[y][x], g);
 			}
 		}
 	}
