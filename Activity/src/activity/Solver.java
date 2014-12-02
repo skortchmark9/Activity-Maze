@@ -19,6 +19,12 @@ public class Solver {
 		this.goalY = goalY;
 	}
 	
+	public boolean tick(Direction d) {
+		this.useDirection = true;
+		this.userDirection = d;
+		return tick();
+	}
+	
 	public boolean tick() {
 		Room current = maze.rooms[solverY][solverX];
 		
@@ -85,7 +91,7 @@ public class Solver {
 		}
 		
 		return false;
-	}	
+	}
 //	public boolean depthFirstSearch(int x, int y, int goalX, int goalY) {
 //		solverX = x;
 //		solverY = y;
