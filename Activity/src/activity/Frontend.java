@@ -42,7 +42,7 @@ class Canvas extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		r.paint(g);
+		r.paint(g, 0, 0);
 	}
 
 }
