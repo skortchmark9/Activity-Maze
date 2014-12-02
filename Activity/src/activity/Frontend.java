@@ -26,7 +26,7 @@ public class Frontend implements KeyListener  {
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setPreferredSize(new Dimension(Render.TILE_SIZE * s.maze.cols, Render.TILE_SIZE * s.maze.rows));
 
-		c = new Canvas(s.maze);
+		c = new Canvas(s);
 		
 		frame.addKeyListener(this);
 		frame.getContentPane().add(c);
@@ -55,7 +55,7 @@ public class Frontend implements KeyListener  {
 			c.setWalker(s.solverX, s.solverY);
 			c.repaint();
 			if (useDirection) {
-//				done = s.tick(userDirection);
+				done = s.tick(userDirection);
 				System.out.println("USING A DIRECTION");
 				System.out.println(userDirection);
 				useDirection = false;
@@ -103,9 +103,9 @@ class Canvas extends JPanel {
 	int y;
 	Render r;
 	
-	Canvas(Maze m) {
+	Canvas(Solver s) {
 		super();
-		this.r = new Render(m);
+		this.r = new Render(s.maze, s.solverX, s.solverY, s.goalX, s.goalY);
 	}
 	
 	public void setWalker(int x, int y) {

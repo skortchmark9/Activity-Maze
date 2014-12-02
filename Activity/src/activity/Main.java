@@ -1,5 +1,7 @@
 package activity;
 
+import java.util.Random;
+
 
 public class Main {
 
@@ -16,8 +18,10 @@ public class Main {
 			System.out.println("Could not parse args");
 			return;
 		}
+
+		Random r = new Random();
+		Maze m = new Maze("mazes/maze" + r.nextInt(10) + ".txt", 10, 25);
 		
-		Maze m = new Maze("mazes/maze0.txt", 10, 25);
 		Solver s = new Solver(m, 0, 0, 24, 9);
 		
 		

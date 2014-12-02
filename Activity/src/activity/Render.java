@@ -10,10 +10,17 @@ public class Render {
 	public final static Color WALL_COLOR = Color.black;
 	public final static Color PATH_COLOR = Color.gray;
 	public final static Color WALKER_COLOR = Color.white;
+	public final static Color START_COLOR = Color.red;
+	public final static Color END_COLOR = Color.green;
 	public Maze maze;
+	int startX, startY, endX, endY;
 	
-	public Render(Maze maze) {
+	public Render(Maze maze, int startX, int startY, int endX, int endY) {
 		this.maze = maze;
+		this.startX = startX;
+		this.startY = startY;
+		this.endX = endX;
+		this.endY = endY;
 		//currentX = 0;
 		//currentY = 0;
 	}
@@ -70,6 +77,18 @@ public class Render {
 			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);
 		}
 		
+		if (r.x == startX && r.y == startY) {
+			g2d.setColor(START_COLOR);
+			int i = 4;
+			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);			
+		}
+
+		if (r.x == endX && r.y == endY) {
+			g2d.setColor(END_COLOR);
+			int i = 4;
+			g2d.fill3DRect(r.x * TILE_SIZE + (i % 3) * (TILE_SIZE / 3), r.y * TILE_SIZE + (i / 3) * (TILE_SIZE / 3), TILE_SIZE / 3, TILE_SIZE / 3, true);			
+		}
+
 		if (isWalker) {
 			g2d.setColor(WALKER_COLOR);
 			int i = 4;

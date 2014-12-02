@@ -15,7 +15,8 @@ public class Util {
 	}
 
 	public static boolean listenToUser() {
-		return Math.random() <= Constants.ListenToUser;
+		return true;
+//		return Math.random() <= Constants.ListenToUser;
 	}
 	
 	public static void printMaze(Maze m) {

@@ -27,7 +27,7 @@ public class Solver {
 	
 	public boolean tick() {
 		Room current = maze.rooms[solverY][solverX];
-		
+		current.visited = true;
 		if (solverX == goalX && solverY == goalY) {
 			return true;
 		}
@@ -39,22 +39,14 @@ public class Solver {
 		
 		if (useDirection) {
 			prioritizeDirection(userDirection, current.doors);
-			useDirection = false;
 		}
 		
-		int doorIndex = -1;
-		for (int i = 0; i < current.doors.length; i++) {
-			if (!current.doors[i].isWall) {
-				doorIndex = i;
-				break;
+		for(int i = 0; i < current.doors.length; i++) {
+			Door d = current.doors[i];
+			
+			if (d.isWall) {
+				continue;
 			}
-		}
-		
-		if (doorIndex == -1) {
-			return false;
-		}
-		else {
-			Door d = current.doors[doorIndex];
 			int neighborX = solverX;
 			int neighborY = solverY;
 			switch (d.dir) {
@@ -86,12 +78,25 @@ public class Solver {
 				break;				
 			}
 			
-			solverX = neighborX;
-			solverY = neighborY;
-		}
+			
+			if (!maze.rooms[neighborY][neighborX].visited || useDirection) {
+				useDirection = false;
+				solverX = neighborX;
+				solverY = neighborY;					
+				break;
+			}
+		} //end for
+
 		
 		return false;
 	}
+	
+	
+	
+	
+	
+	
+	
 //	public boolean depthFirstSearch(int x, int y, int goalX, int goalY) {
 //		solverX = x;
 //		solverY = y;
