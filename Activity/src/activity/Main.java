@@ -19,7 +19,7 @@ public class Main {
 		
 		Maze m = new Maze("mazes/maze0.txt", 10, 25);
 //		m.printMaze();
-		Solver s = new Solver(m);
+		Solver s = new Solver(m, 0, 0, 24, 9);
 		
 		
 		new Frontend(s);
